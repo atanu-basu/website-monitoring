@@ -1,0 +1,47 @@
+<div class="page-content page-container" id="page-content">
+  <div class="padding">
+      <div class="row container d-flex justify-content-center">
+
+<div class="col-lg-10 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title"></h4>
+                <p class="card-description">
+                  Url Details
+                </p>
+                <span>
+                  <input type="text"  class="form-control-sm" placeholder="Search any url" name="searchText" [(ngModel)]="searchText" (keyup)="onValueChange()">
+                </span>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th *ngFor="let item of displayedColumns"
+                          class="sort"
+                          (click)="sortToggle(sort)">
+                            {{item}}
+                            <a id={{item}} #sort>
+                              <i class='fa fa-sort'></i>
+                            </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let url of dataSource">
+                        <td>{{ url.id }}</td>
+                        <td>{{ url.name }}</td>
+                        <td>{{ url.url }}</td>
+                        <td ><button  [ngClass]="url.status == 'Up' ? 'btn-outline-success' : 'btn-outline-danger'" class="btn btn-sm">{{ url.status}}</button></td>
+                        <td>{{url.statusCode}}</td>
+                        <td>{{ url.lastScanned }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          </div>
+            </div>
+          </div>
