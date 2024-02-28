@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { TableComponent } from './components/home/table/table.component';
 import { FormsModule } from '@angular/forms';
+import { AddurlComponent } from './components/addurl/addurl.component';
+import { NavComponent } from './components/home/nav/nav.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    TableComponent
+    TableComponent,
+    AddurlComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,

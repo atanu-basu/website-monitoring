@@ -1,0 +1,27 @@
+
+.form-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  margin: 0;
+}
+.form-container form {
+  height: 350px;
+  width: 550px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+.form-group{
+  margin-bottom: 10px
+}
+.form-container button[type="submit"],
+.form-container button[type="reset"] {
+  float: right;
+  margin-left: 20px;
+}

@@ -1,23 +1,6 @@
 import { Component , ElementRef, ViewChildren} from '@angular/core';
-
-
-export interface PeriodicElement {
-  name: string;
-  id: number;
-  url: string;
-  status: string;
-  statusCode: number;
-  lastScanned: Date;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {id: 1, name: 'Google', url: 'https://google.com', status: 'Up',statusCode: 200, lastScanned: new Date()},
-  {id: 2, name: 'Facebook', url: 'https://facebook.com', status: 'Up', statusCode: 200,lastScanned: new Date()},
-  {id: 3, name: 'Gmail', url: 'https://mail.google.com', status: 'Down',statusCode: 500,lastScanned: new Date()},
-  {id: 4, name: 'Youtube', url: 'https://youtube.com', status: 'Up',statusCode: 200,lastScanned: new Date()},
-  {id: 5, name: 'Twitter', url: 'https://x.com', status: 'Up', statusCode: 200,lastScanned: new Date()},
-  {id: 6, name: 'Racing', url: 'https://f1tv.com', status: 'Up', statusCode: 200,lastScanned: new Date()},
-];
+import { UrlService } from '../../../services/url.service';
+import { UrlDetails } from 'src/app/models/url.model';
 
 @Component({
   selector: 'app-table',
@@ -25,19 +8,34 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./table.component.css']
 })
 export class TableComponent {
+
+  constructor(public urlService: UrlService){}
+
   displayedColumns: string[] = ['id', 'name', 'url', 'status', 'status code', 'last scanned'];
-  dataSource = ELEMENT_DATA;
   searchText: string = '';
   sortToggleValue = '';
+  ELEMENT_DATA: UrlDetails[];
+  dataSource: UrlDetails[];
 
   @ViewChildren('sort') components;
 
+  ngOnInit(){
+
+    this.urlService.getAllUrls().subscribe((data) => {
+      this.ELEMENT_DATA = data;
+      this.dataSource = data;
+    });
+    // console.log(this.ELEMENT_DATA);
+
+  }
+
+
   onValueChange(){
-    // console.log(this.searchText)
+    console.log(this.searchText)
     if(!this.searchText) {
-      this.dataSource = ELEMENT_DATA;
+      this.dataSource = this.ELEMENT_DATA;
     }else {
-      this.dataSource = ELEMENT_DATA.filter((val) => {
+      this.dataSource = this.ELEMENT_DATA.filter((val) => {
         return val.url.toLowerCase().includes(this.searchText.toLowerCase())
       });
     }
