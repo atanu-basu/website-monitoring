@@ -1,0 +1,63 @@
+<div id="root">
+  <div class="container pt-5">
+    <div class="row align-items-stretch">
+      <div class="c-dashboardInfo col-lg-3 col-md-6">
+        <div class="wrap">
+          <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">URL Count<svg
+              class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+              </path>
+            </svg></h4>
+            <span class="hind-font caption-12 c-dashboardInfo__count">{{ urlData["url"].length }}</span>
+            <span class="refresh"><a class="link" (click)="refreshCard()"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+            <span *ngIf="error1"><p class="text-warning"> Could not fetch result, please try after some time</p></span>
+        </div>
+      </div>
+      <div class="c-dashboardInfo col-lg-3 col-md-6">
+        <div class="wrap">
+          <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Active URL<svg
+              class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+              </path>
+            </svg></h4>
+            <span class="hind-font caption-12 c-dashboardInfo__count">{{ activeCount }}</span>
+            <span class="refresh"><a (click)="refreshCard()"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+            <span *ngIf="error1"><p class="text-warning"> Could not fetch result, please try after some time</p></span>
+          </div>
+        </div>
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+          <div class="wrap">
+            <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Available<svg
+              class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+            </path>
+          </svg></h4>
+          <span class="hind-font caption-12 c-dashboardInfo__count">{{ availableCount }}</span>
+          <span class="refresh"><a (click)="refreshCard()"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+          <span class="hind-font caption-12 c-dashboardInfo__subInfo text-success">{{ availableCount/urlData["monitor"].length | percent }} <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> </span>
+          <span *ngIf="error1"><p class="text-warning"> Could not fetch result, please try after some time</p></span>
+        </div>
+      </div>
+      <div class="c-dashboardInfo col-lg-3 col-md-6">
+        <div class="wrap">
+          <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Unavailable<svg
+              class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+              </path>
+            </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">{{ unavailableCount }}</span>
+            <span class="refresh"><a (click)="refreshCard()"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+            <span class="hind-font caption-12 c-dashboardInfo__subInfo text-danger">{{ unavailableCount/urlData["monitor"].length | percent }} <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></span>
+            <span *ngIf="error2"><p class="text-warning"> Could not fetch result, please try after some time</p></span>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

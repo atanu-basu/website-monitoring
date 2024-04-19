@@ -1,4 +1,4 @@
-
+/*
 .form-container {
   width: 100%;
   display: flex;
@@ -14,7 +14,8 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: #fff;
+  color: #3a3a3a;
+  background-color: #fff;
 }
 
 .form-group{
@@ -24,4 +25,33 @@
 .form-container button[type="reset"] {
   float: right;
   margin-left: 20px;
+}
+ */
+ body {
+  background: #f7f7f7;
+}
+
+.form-box {
+  max-width: 500px;
+  margin: auto;
+  padding: 50px;
+  background: #ffffff;
+  border: 10px solid #f2f2f2;
+}
+
+h1, p {
+  color: black;
+  text-align: center;
+}
+
+input, textarea {
+  width: 100%;
+}
+
+.form-check-input{
+  width: 15px;
+}
+
+.btn{
+  margin-bottom: 10px;
 }

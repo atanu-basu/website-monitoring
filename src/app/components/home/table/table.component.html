@@ -1,47 +1,50 @@
-<div class="page-content page-container" id="page-content">
-  <div class="padding">
-      <div class="row container d-flex justify-content-center">
+<div class="container">
 
-<div class="col-lg-10 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title"></h4>
-                <p class="card-description">
-                  Dashboard
-                </p>
-                <span>
-                  <input type="text"  class="form-control-sm" placeholder="Search any url" name="searchText" [(ngModel)]="searchText" (keyup)="onValueChange()">
-                </span>
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th *ngFor="let item of displayedColumns"
-                          class="sort"
-                          (click)="sortToggle(sort)">
-                            {{item}}
-                            <a id={{item}} #sort>
-                              <i class='fa fa-sort'></i>
-                            </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let url of dataSource">
-                        <td>{{ url.id }}</td>
-                        <td>{{ url.name }}</td>
-                        <td>{{ url.url }}</td>
-                        <td ><button  [ngClass]="url.status == 'Up' ? 'btn-outline-success' : 'btn-outline-danger'" class="btn btn-sm">{{ url.status}}</button></td>
-                        <td>{{url.statusCode}}</td>
-                        <td>{{ url.lastScanned }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class=" stretch-card" style="border-radius: 5px;box-shadow: 0px 0px 30px 10px #ccc;">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"></h4>
+        <p class="card-description"> Dashboard</p>
+        <span>
+          <input type="text" class="form-control-sm" placeholder="Search any url" name="searchText"
+            [(ngModel)]="searchText" (keyup)="onValueChange()">
+          <input type="button" class="btn btn-sm btn-outline-primary" value="Refresh" (click)="refreshTable()"
+            style="margin-left: 5px;">
+        </span>
+      </div>
 
-          </div>
-            </div>
-          </div>
+      <div class="card-body table-responsive">
+
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th *ngFor="let item of displayedColumns" class="sort" (click)="sortToggle(sort)">
+                {{item}}
+                <a id={{item}} #sort>
+                  <i class='fa fa-sort'></i>
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <div class="loader hideLoader" #loader ></div>
+            <tr *ngIf="errMessage"><td colspan="6" style="text-align: center;">Could not fetch results, please try again after sometime.</td></tr>
+            <tr *ngFor="let row of dataSource" (click)="showDetails(row)">
+              <td>{{ row._id }}</td>
+              <td>{{ row.url.name }}</td>
+              <td>{{ row.url.url }}</td>
+              <td><span
+                [ngClass]="{'badge-success': row.statusCode == 200, 'badge-warning': row.statusCode >=300 && row.statusCode <400, 'badge-danger': row.statusCode>=400 || row.statusCode==null  }"
+                class="badge badge-pill"
+                >{{ row.status}}</span></td>
+              <td>{{row.statusCode || null}}</td>
+              <td>{{ row.lastScanned | date: 'short'}} </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-site-details *ngIf="showDetailsToggle"></app-site-details>

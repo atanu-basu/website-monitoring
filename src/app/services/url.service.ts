@@ -1,45 +1,56 @@
 import { Injectable } from '@angular/core';
-import { UrlDetails} from '../models/url.model'
-import { Observable } from 'rxjs';
+import { UrlDetails } from '../models/url.model';
+import { UrlInputModel } from '../models/url-input.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UrlService {
-
-  constructor() { }
-
-  ELEMENT_DATA: UrlDetails[] = [
-    {id: 1, name: 'Google', url: 'https://google.com', status: 'Up',statusCode: 200, lastScanned: new Date()},
-    {id: 2, name: 'Facebook', url: 'https://facebook.com', status: 'Up', statusCode: 200,lastScanned: new Date()},
-    {id: 3, name: 'Gmail', url: 'https://mail.google.com', status: 'Down',statusCode: 500,lastScanned: new Date()},
-    {id: 4, name: 'Youtube', url: 'https://youtube.com', status: 'Up',statusCode: 200,lastScanned: new Date()},
-    {id: 5, name: 'Twitter', url: 'https://x.com', status: 'Up', statusCode: 200,lastScanned: new Date()},
-    {id: 6, name: 'Racing', url: 'https://f1tv.com', status: 'Up', statusCode: 200,lastScanned: new Date()},
-  ];
-
-  getAllUrls(){
-    return new Observable<UrlDetails[]>((obs) => {
-      obs.next(this.ELEMENT_DATA)
-    });
+  headers = {
+    "Accept": "*/*",
+    "Access-Control-Allow-Origin": "*"
   }
 
-  addUrl(url){
+  constructor(public client: HttpClient) { }
+
+  getAllUrls(){
+    return this.client.get('http://localhost:3000/api/v1/url/monitor')
+  }
+
+  getInputsList() {
+    return this.client.get('http://localhost:3000/api/v1/url/');
+  }
+
+  addUrl(url: UrlInputModel){
 
     let urlObj = {
-      id: this.ELEMENT_DATA.length + 1,
       name: url.name,
       url: url.url,
-      status: 'Up',
-      statusCode: 200,
-      lastScanned: new Date()
+      interval: url.interval,
+      monitor: url.monitor
     }
-    this.ELEMENT_DATA.push(urlObj);
 
-    return new Observable((obs) => {
-      setTimeout(() => {
-        obs.next({status: 'Succesfully added! '+ url.name});
-      },2000);
-    });
+    return this.client.post('http://localhost:3000/api/v1/url/add', urlObj);
+
+  }
+
+  enableMonitor(url){
+
+    return this.client.post('http://localhost:3000/api/v1/url/monitor/add', url, { headers : this.headers});
+  }
+
+  disableMonitor(url){
+
+    return this.client.post('http://localhost:3000/api/v1/url/monitor/remove', url, { headers : this.headers});
+  }
+
+  updateUrl(oldurl, newurl){
+    return this.client.post('http://localhost:3000/api/v1/url/update', {oldUrl: oldurl, newUrl: newurl}, {headers: this.headers});
+  }
+
+  deleteUrl(item){
+
+    return this.client.delete('http://localhost:3000/api/v1/url/delete/'+item);
   }
 }

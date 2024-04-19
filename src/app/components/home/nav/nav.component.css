@@ -1,3 +1,8 @@
 .bg-body-tertiary{
   background-color: #9297e5;
 }
+
+.active{
+  color: var(--bs-navbar-active-color);
+  font-weight: 800;
+}

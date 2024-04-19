@@ -1,0 +1,49 @@
+
+
+.edit-container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: 500px;
+  width: 600px;
+  background: #fffefe;
+  z-index: 200;
+  padding: 2%
+}
+.card-header{
+  position: relative;
+  margin-bottom: 2%;
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 5%;
+  border-bottom: 2px solid #f2f2f2;
+
+}
+
+label{
+  margin: 10px 0px;
+}
+
+button{
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.card-header span {
+  position: relative;
+  float: right;
+  cursor: pointer;
+}
+
+.card-header span:hover{
+  transform: scale(1.2);
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}

@@ -15,6 +15,7 @@ export class AddurlComponent {
   url: string;
   name: string;
   interval: string;
+  monitor: boolean = true;
 
   isEmpty: boolean;
   isValidForm: boolean = false;
@@ -49,24 +50,44 @@ export class AddurlComponent {
       console.log(err)
     }
   }
+  checkCheckBoxvalue(event){
+    this.monitor = event.target.checked;
+    console.log(this.monitor);
+
+  }
 
   onSubmit(){
     let urlObj = {
       name: this.name,
       url: this.url,
+      interval: +this.interval,
+      monitor: this.monitor
     }
-    console.log(urlObj);
+    // console.log(urlObj);
 
-    this.urlService.addUrl(urlObj).subscribe((res) => {
-      this.message = res;
+    this.urlService.addUrl(urlObj).subscribe(data => {
+      this.message = data;
       console.log(this.message);
+      this.onSubmitComplete(this.message);
 
-      if(this.message){
-        setTimeout(() => {
-          this.router.navigate(['']);
-        }, 500);
-      }
+    }, err => {
+      this.message = err;
     })
+
+  }
+
+  onSubmitComplete(urlDetails) {
+    if(this.monitor){
+      setTimeout(() =>{
+        this.urlService.enableMonitor(urlDetails).subscribe(data => {
+          this.message = data;
+        console.log(this.message);
+      }, err => {
+        this.message = err;
+        console.log(this.message);
+        })
+      }, 2000)
+    }
   }
 
 }

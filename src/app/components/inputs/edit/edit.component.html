@@ -1,0 +1,30 @@
+<div class="edit-container">
+  <div class="card-header">
+    Edit
+    <span><a (click)="onClose()"><i class="fa fa-times" aria-hidden="true"></i></a></span>
+  </div>
+  <div class="form-table">
+    <form #editForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" placeholder="Edit Url name" required [(ngModel)]="urlName" name="urlName" #name="ngModel">
+        <small class="text-danger" *ngIf="name.control.status == 'INVALID'">*Name must be greater than 1 character</small>
+
+      </div>
+      <div class="form-group">
+        <label for="url">URL</label>
+        <input type="text" class="form-control" placeholder="Edit URL" required [(ngModel)]="urlAddress" name="url" #address="ngModel">
+        <small class="text-danger" *ngIf="address.control.status == 'INVALID'">*Invalid URL</small>
+      </div>
+      <div class="form-group">
+        <label for="interval">Interval (sec)</label>
+        <input type="number" class="form-control" placeholder="Edit interval" required [(ngModel)]="urlInterval" name="interval" #intervalTime="ngModel">
+        <small class="text-danger" *ngIf="intervalTime.control.status == 'INVALID'">*Invalid Interval (should be >= 5sec and &lt; 30days)</small>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!isValidForm">Submit</button>
+      <button type="button" class="btn btn-secondary" (click)="onClose()">Cancel</button>
+
+    </form>
+  </div>
+
+</div>

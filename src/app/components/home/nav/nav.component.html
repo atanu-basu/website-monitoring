@@ -7,15 +7,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="">Home</a>
+          <a class="nav-link" aria-current="page" routerLink="" #home>Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="'addurl'">Add url</a>
+          <a class="nav-link" [routerLink]="'/addurl'" #add>Add url</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/listurl'" #input>Inputs</a>
         </li>
       </ul>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-success me-md-2" type="button">Log in</button>
-        <button type="button" class="btn btn-outline-dark">Sign</button>
+        <!-- <button class="btn btn-success me-md-2" type="button" [routerLink]="'/login'">Log in</button> -->
+        <button type="button" class="btn btn-outline-dark" (click)="signOut()">Sign out</button>
       </div>
     </div>
   </div>
